@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/auth")
 public class RESTAuth {
 
 	private AuthenticationManager authenticationManager;
@@ -29,8 +30,9 @@ public class RESTAuth {
 		this.funcionarioDetailsService = funcionarioDetailsService;
 	}
 
-	@RequestMapping(value = "/auth", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginDTO authenticationRequest) throws Exception {
+	
+	@PostMapping
+	public ResponseEntity<UsuarioLoginDTO> createAuthenticationToken(@RequestBody LoginDTO authenticationRequest) throws Exception {
 		authenticate(authenticationRequest.getEmail(), authenticationRequest.getSenha());
 		final UserDetails userDetails = funcionarioDetailsService.loadUserByUsername(authenticationRequest.getEmail());
 		final String token = tokenService.gerarToken(userDetails);
