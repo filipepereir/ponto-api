@@ -9,25 +9,42 @@ import javax.persistence.TypedQuery;
 
 public class FuncionarioRepositoryImpl {
 
+	@Autowired
+	private EntityManager em;
 
-    @Autowired
-    private EntityManager em;
+	@SuppressWarnings("unused")
+	public UsuarioDTO buscarUsuarioPorId(Integer codigo) throws NoResultException {
+		try {
 
-    @SuppressWarnings("unused")
-    public UsuarioDTO buscarUsuarioPorId(Integer codigo) throws NoResultException {
-        try {
+			String sql = "SELECT new com.ponto.api.entity.dto.UsuarioDTO(u.codigo, u.nome, u.email) from Usuario u where u.codigo = :codigo";
 
-            String sql = "SELECT new com.ponto.api.entity.dto.UsuarioDTO(u.codigo, u.nome) from Usuario u where u.codigo = :codigo";
+			TypedQuery<UsuarioDTO> query = em.createQuery(sql, UsuarioDTO.class);
+			query.setParameter("codigo", codigo);
 
-            TypedQuery<UsuarioDTO> query = em.createQuery(sql, UsuarioDTO.class);
-            query.setParameter("codigo", codigo);
+			return query.getSingleResult();
 
-            return query.getSingleResult();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			em.close();
+		}
+	}
 
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            em.close();
-        }
-    }
+	@SuppressWarnings("unused")
+	public UsuarioDTO buscarUsuarioDtoPorEmail(String email) throws NoResultException {
+		try {
+
+			String sql = "SELECT new com.ponto.api.entity.dto.UsuarioDTO(u.codigo, u.nome, u.email) from Usuario u where u.email = :email";
+
+			TypedQuery<UsuarioDTO> query = em.createQuery(sql, UsuarioDTO.class);
+			query.setParameter("email", email);
+
+			return query.getSingleResult();
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			em.close();
+		}
+	}
 }

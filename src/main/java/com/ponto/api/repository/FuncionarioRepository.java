@@ -11,5 +11,7 @@ public interface FuncionarioRepository extends JpaRepository<Usuario, Integer> {
 
 	public UsuarioDTO buscarUsuarioPorId(Integer codigo) throws NoResultException;
 
-	Usuario findByEmail(String email);
+	UsuarioDTO buscarUsuarioDtoPorEmail(String email);
+
+	public Usuario findUsuarioByEmail(String email);
 }
