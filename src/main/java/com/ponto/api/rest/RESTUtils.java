@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.ponto.api.entity.dto.UsuarioDTO;
 import com.ponto.api.repository.FuncionarioRepository;
 
-public class RESTAbstrata {
+public class RESTUtils {
 
 	@Autowired
 	private FuncionarioRepository funcionarioRepository;

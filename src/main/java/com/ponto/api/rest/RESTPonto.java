@@ -18,7 +18,7 @@ import com.ponto.api.service.RegistroPontoService;
 
 @RestController
 @RequestMapping("/registro")
-public class RESTPonto extends RESTAbstrata {
+public class RESTPonto extends RESTUtils {
 
 	private RegistroPontoService service;
 
