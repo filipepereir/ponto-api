@@ -19,8 +19,12 @@ import java.util.List;
 public class RESTPonto {
 
 
-    @Autowired
     private RegistroPontoService service;
+
+    @Autowired
+    public RESTPonto(RegistroPontoService service) {
+        this.service = service;
+    }
 
     @PostMapping
     public ResponseEntity<RegistroPontoDTO> registrarPonto(@RequestBody UsuarioDTO usuario) {
@@ -40,7 +44,7 @@ public class RESTPonto {
     @RequestMapping("/v1")
     public ResponseEntity<List<RegistroPontoUsuarioDTO>> buscarRegistrosV1() {
         try {
-            var registrado = service.buscarRegistros();
+            var registrado = service.buscarRegistrosV1();
             return ResponseEntity.status(HttpStatus.OK).body(registrado);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

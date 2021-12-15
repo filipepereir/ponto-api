@@ -1,5 +1,7 @@
 package com.ponto.api.config;
 
+import com.ponto.api.filter.AuthEntryPoint;
+import com.ponto.api.filter.AuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,51 +17,49 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.ponto.api.filter.AuthEntryPoint;
-import com.ponto.api.filter.AuthFilter;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private AuthEntryPoint authEntryPoint;
 
-	@Autowired
-	private UserDetailsService jwtUserDetailsService;
+    private AuthEntryPoint authEntryPoint;
+    private UserDetailsService jwtUserDetailsService;
+    private AuthFilter authFilter;
 
-	@Autowired
-	private AuthFilter authFilter;
+    @Autowired
+    public WebSecurityConfig(AuthEntryPoint authEntryPoint, UserDetailsService jwtUserDetailsService, AuthFilter authFilter) {
+        this.authEntryPoint = authEntryPoint;
+        this.jwtUserDetailsService = jwtUserDetailsService;
+        this.authFilter = authFilter;
+    }
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// TODO Auto-generated method stub
-		auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
-	}
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+    }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-	@Override
-	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable()
-				// Não cheque essas requisições
-				.authorizeRequests().antMatchers("/auth", "/v2/api-docs", "/configuration/ui", "/swagger-resources/**",
-						"/configuration/**", "/swagger-ui.html", "/webjars/**")
-				.permitAll().
-				// Qualquer outra requisição deve ser checada
-				anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(authEntryPoint).and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		httpSecurity.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
-	}
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf().disable()
+                // Permite que seja adicionados novas requisições não checadas
+                .authorizeRequests().antMatchers("/auth")
+                .permitAll().
+                // as demais requisições erão checadas
+                        anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(authEntryPoint).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        httpSecurity.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
+    }
 
 }

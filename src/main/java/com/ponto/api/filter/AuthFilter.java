@@ -21,41 +21,45 @@ import com.ponto.api.service.security.TokenService;
 @Component
 public class AuthFilter extends OncePerRequestFilter {
 
-	@Autowired
-	private TokenService tokenService;
 
-	@Autowired
-	private FuncionarioDetailsService funcionarioDetailsService;
+    private TokenService tokenService;
+    private FuncionarioDetailsService funcionarioDetailsService;
 
-	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+    @Autowired
+    public AuthFilter(TokenService tokenService, FuncionarioDetailsService funcionarioDetailsService) {
+        this.tokenService = tokenService;
+        this.funcionarioDetailsService = funcionarioDetailsService;
+    }
 
-		final String requestTokenHeader = request.getHeader("Authorization");
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
-		String email = null;
-		String jwtToken = null;
+        final String requestTokenHeader = request.getHeader("Authorization");
 
-		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-			jwtToken = requestTokenHeader.substring(7);
-			email = tokenService.getEmailFromToken(jwtToken);
-		}
+        String email = null;
+        String jwtToken = null;
 
-		if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-			UserDetails userDetails = this.funcionarioDetailsService.loadUserByUsername(email);
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+            jwtToken = requestTokenHeader.substring(7);
+            email = tokenService.getEmailFromToken(jwtToken);
+        }
 
-			if (userDetails != null) {
-				if (tokenService.validarToken(jwtToken, userDetails)) {
-					UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-							userDetails, null, userDetails.getAuthorities());
-					usernamePasswordAuthenticationToken
-							.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = this.funcionarioDetailsService.loadUserByUsername(email);
 
-					SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-				}
-			}
-		}
-		filterChain.doFilter(request, response);
+            if (userDetails != null) {
+                if (tokenService.validarToken(jwtToken, userDetails)) {
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities());
+                    usernamePasswordAuthenticationToken
+                            .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-	}
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                }
+            }
+        }
+        filterChain.doFilter(request, response);
+
+    }
 }

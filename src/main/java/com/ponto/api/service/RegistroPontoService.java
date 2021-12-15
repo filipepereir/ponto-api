@@ -19,11 +19,15 @@ import java.util.stream.Collectors;
 @Service
 public class RegistroPontoService {
 
-    @Autowired
+
     private RegistroPontoRepository repository;
+    private FuncionarioRepository funcionarioRepository;
 
     @Autowired
-    private FuncionarioRepository funcionarioRepository;
+    public RegistroPontoService(RegistroPontoRepository repository, FuncionarioRepository funcionarioRepository) {
+        this.repository = repository;
+        this.funcionarioRepository = funcionarioRepository;
+    }
 
     public RegistroPontoDTO registrarPonto(UsuarioDTO usuario) {
         UsuarioDTO usuarioBuscado = null;
@@ -57,14 +61,11 @@ public class RegistroPontoService {
         registroPonto.setMensagem(
                 "Erro ao registrar ponto, quantidade maxima de 4 batidas e maximo de 2 solicitações com erro, tente novamente amanhã");
 
-        //RegistroPonto registrado = repository.save(registroPonto);
-
         return new RegistroPontoDTO(registroPonto);
 
     }
 
-    public List<RegistroPontoUsuarioDTO> buscarRegistros() {
-
+    public List<RegistroPontoUsuarioDTO> buscarRegistrosV1() {
         return repository.findAll().stream().map(RegistroPontoUsuarioDTO::new).collect(Collectors.toList());
     }
 

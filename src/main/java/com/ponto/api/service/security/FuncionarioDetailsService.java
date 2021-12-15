@@ -14,19 +14,24 @@ import java.util.ArrayList;
 @Service
 public class FuncionarioDetailsService implements UserDetailsService {
 
-	@Autowired
-	FuncionarioRepository funcionarioRepository;
 
-	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    private FuncionarioRepository funcionarioRepository;
 
-		Usuario user = funcionarioRepository.findByEmail(email);
+    @Autowired
+    public FuncionarioDetailsService(FuncionarioRepository funcionarioRepository) {
+        this.funcionarioRepository = funcionarioRepository;
+    }
 
-		if (user.getEmail().equals(email)) {
-			return new User(email, user.getSenha(), new ArrayList<>());
-		} else {
-			return null;
-		}
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-	}
+        Usuario user = funcionarioRepository.findByEmail(email);
+
+        if (user.getEmail().equals(email)) {
+            return new User(email, user.getSenha(), new ArrayList<>());
+        } else {
+            return null;
+        }
+
+    }
 }
