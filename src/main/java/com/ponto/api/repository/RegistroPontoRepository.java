@@ -1,7 +1,7 @@
 package com.ponto.api.repository;
 
 import com.ponto.api.entity.RegistroPonto;
-import com.ponto.api.entity.dto.RegistroPontoUsuariosDTO;
+import com.ponto.api.entity.dto.RegistroPontoUsuarioDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +15,5 @@ public interface RegistroPontoRepository extends JpaRepository<RegistroPonto, In
 
     Long buscarQuantidadeBatidasErroPorDia(Integer codigoUsuario);
 
-    List<RegistroPontoUsuariosDTO> buscarRegistrosUsuariosV2();
+    List<RegistroPontoUsuarioDTO> buscarRegistrosUsuariosV2();
 }

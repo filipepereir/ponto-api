@@ -9,8 +9,6 @@ public class UsuarioDTO {
 
     private Integer codigo;
     private String nome;
-    private String email;
-    private String senha;
 
     public Integer getCodigo() {
         return codigo;
@@ -28,19 +26,4 @@ public class UsuarioDTO {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
 }

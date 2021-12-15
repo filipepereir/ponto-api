@@ -13,9 +13,9 @@ import com.ponto.api.enums.StatusRegistroPonto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class RegistroPontoUsuariosDTO {
+public class RegistroPontoUsuarioDTO {
 
-    public RegistroPontoUsuariosDTO(LocalDateTime dataHoraRegistro, LocalDate dataBatida, StatusRegistroPonto status, String mensagem, String nomeUsuario, Integer codigoUsuario) {
+    public RegistroPontoUsuarioDTO(LocalDateTime dataHoraRegistro, LocalDate dataBatida, StatusRegistroPonto status, String mensagem, String nomeUsuario, Integer codigoUsuario) {
         this.dataHoraRegistro = dataHoraRegistro;
         this.dataBatida = dataBatida;
         this.status = status;
@@ -40,7 +40,7 @@ public class RegistroPontoUsuariosDTO {
 
     private Integer codigoUsuario;
 
-    public RegistroPontoUsuariosDTO(RegistroPonto registroPonto) {
+    public RegistroPontoUsuarioDTO(RegistroPonto registroPonto) {
 
         this.dataHoraRegistro = registroPonto.getDataHoraBatida();
         this.dataBatida = registroPonto.getDataBatida();

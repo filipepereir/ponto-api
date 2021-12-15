@@ -4,7 +4,7 @@ package com.ponto.api.service;
 import com.ponto.api.entity.RegistroPonto;
 import com.ponto.api.entity.Usuario;
 import com.ponto.api.entity.dto.RegistroPontoDTO;
-import com.ponto.api.entity.dto.RegistroPontoUsuariosDTO;
+import com.ponto.api.entity.dto.RegistroPontoUsuarioDTO;
 import com.ponto.api.entity.dto.UsuarioDTO;
 import com.ponto.api.enums.StatusRegistroPonto;
 import com.ponto.api.repository.FuncionarioRepository;
@@ -63,12 +63,12 @@ public class RegistroPontoService {
 
     }
 
-    public List<RegistroPontoUsuariosDTO> buscarRegistros() {
+    public List<RegistroPontoUsuarioDTO> buscarRegistros() {
 
-        return repository.findAll().stream().map(RegistroPontoUsuariosDTO::new).collect(Collectors.toList());
+        return repository.findAll().stream().map(RegistroPontoUsuarioDTO::new).collect(Collectors.toList());
     }
 
-    public List<RegistroPontoUsuariosDTO> buscarRegistrosv2() {
+    public List<RegistroPontoUsuarioDTO> buscarRegistrosv2() {
         return repository.buscarRegistrosUsuariosV2();
     }
 }

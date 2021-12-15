@@ -2,7 +2,7 @@ package com.ponto.api.rest;
 
 
 import com.ponto.api.entity.dto.RegistroPontoDTO;
-import com.ponto.api.entity.dto.RegistroPontoUsuariosDTO;
+import com.ponto.api.entity.dto.RegistroPontoUsuarioDTO;
 import com.ponto.api.entity.dto.UsuarioDTO;
 import com.ponto.api.service.RegistroPontoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class RESTPonto {
 
     @GetMapping
     @RequestMapping("/v1")
-    public ResponseEntity<List<RegistroPontoUsuariosDTO>> buscarRegistrosV1() {
+    public ResponseEntity<List<RegistroPontoUsuarioDTO>> buscarRegistrosV1() {
         try {
             var registrado = service.buscarRegistros();
             return ResponseEntity.status(HttpStatus.OK).body(registrado);
@@ -49,7 +49,7 @@ public class RESTPonto {
 
     @GetMapping
     @RequestMapping("/v2")
-    public ResponseEntity<List<RegistroPontoUsuariosDTO>> buscarRegistrosV2() {
+    public ResponseEntity<List<RegistroPontoUsuarioDTO>> buscarRegistrosV2() {
         try {
             var registrado = service.buscarRegistrosv2();
             return ResponseEntity.status(HttpStatus.OK).body(registrado);
