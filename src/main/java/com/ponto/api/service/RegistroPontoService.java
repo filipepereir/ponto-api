@@ -69,7 +69,7 @@ public class RegistroPontoService {
         return repository.findAll().stream().map(RegistroPontoUsuarioDTO::new).collect(Collectors.toList());
     }
 
-    public List<RegistroPontoUsuarioDTO> buscarRegistrosv2() {
-        return repository.buscarRegistrosUsuariosV2();
+    public List<RegistroPontoUsuarioDTO> buscarRegistrosv2(String email) {
+        return repository.buscarRegistrosUsuariosV2(email);
     }
 }

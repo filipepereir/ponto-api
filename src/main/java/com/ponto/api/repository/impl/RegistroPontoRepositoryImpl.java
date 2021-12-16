@@ -58,15 +58,15 @@ public class RegistroPontoRepositoryImpl {
 	}
 
 	@SuppressWarnings("unused")
-	public List<RegistroPontoUsuarioDTO> buscarRegistrosUsuariosV2() {
+	public List<RegistroPontoUsuarioDTO> buscarRegistrosUsuariosV2(String email) {
 		try {
 
 			String sql = "SELECT new com.ponto.api.entity.dto.RegistroPontoUsuarioDTO ( "
 					+ "rp.dataHoraBatida, rp.dataBatida, rp.status, rp.mensagem, u.nome, u.codigo) "
-					+ " from RegistroPonto rp join rp.usuario u";
+					+ " from RegistroPonto rp join rp.usuario u where u.email = :email";
 
 			TypedQuery<RegistroPontoUsuarioDTO> query = em.createQuery(sql, RegistroPontoUsuarioDTO.class);
-
+			query.setParameter("email", email);
 			return query.getResultList();
 
 		} catch (Exception e) {

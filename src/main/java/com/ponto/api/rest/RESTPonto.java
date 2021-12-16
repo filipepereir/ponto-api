@@ -56,7 +56,7 @@ public class RESTPonto extends RESTUtils {
 	@RequestMapping("/v2")
 	public ResponseEntity<List<RegistroPontoUsuarioDTO>> buscarRegistrosV2() {
 		try {
-			var registros = service.buscarRegistrosv2();
+			var registros = service.buscarRegistrosv2(getUsuarioLogado().getEmail());
 			return ResponseEntity.status(HttpStatus.OK).body(registros);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

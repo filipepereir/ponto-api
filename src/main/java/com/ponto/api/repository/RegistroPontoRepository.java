@@ -15,5 +15,5 @@ public interface RegistroPontoRepository extends JpaRepository<RegistroPonto, In
 
     Long buscarQuantidadeBatidasErroPorDia(Integer codigoUsuario);
 
-    List<RegistroPontoUsuarioDTO> buscarRegistrosUsuariosV2();
+    List<RegistroPontoUsuarioDTO> buscarRegistrosUsuariosV2(String email);
 }
