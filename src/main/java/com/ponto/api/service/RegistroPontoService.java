@@ -3,6 +3,7 @@ package com.ponto.api.service;
 
 import com.ponto.api.entity.RegistroPonto;
 import com.ponto.api.entity.Usuario;
+import com.ponto.api.entity.dto.LocalizacaoDTO;
 import com.ponto.api.entity.dto.RegistroPontoDTO;
 import com.ponto.api.entity.dto.RegistroPontoUsuarioDTO;
 import com.ponto.api.entity.dto.UsuarioDTO;
@@ -29,7 +30,7 @@ public class RegistroPontoService {
         this.funcionarioRepository = funcionarioRepository;
     }
 
-    public RegistroPontoDTO registrarPonto(UsuarioDTO usuario) {
+    public RegistroPontoDTO registrarPonto(UsuarioDTO usuario, LocalizacaoDTO localizacaoDTO) {
         UsuarioDTO usuarioBuscado = null;
         try {
             usuarioBuscado = funcionarioRepository.buscarUsuarioPorId(usuario.getCodigo());
@@ -44,6 +45,8 @@ public class RegistroPontoService {
         if (quantidadeBatidasDoDia < 4) {
             registroPonto.setStatus(StatusRegistroPonto.REGISTRADO);
             registroPonto.setMensagem("Ponto registrado");
+            registroPonto.setLatitude(localizacaoDTO.getLatitude());
+            registroPonto.setLongitude(localizacaoDTO.getLongitude());
 
             RegistroPonto registrado = repository.save(registroPonto);
 
@@ -52,6 +55,8 @@ public class RegistroPontoService {
         } else if (quantidadeBatidasErroDoDia == 0) {
             registroPonto.setStatus(StatusRegistroPonto.ERRO);
             registroPonto.setMensagem("Erro o registrar ponto, quantidade maxima de 4 batidas");
+            registroPonto.setLatitude(localizacaoDTO.getLatitude());
+            registroPonto.setLongitude(localizacaoDTO.getLongitude());
 
             RegistroPonto registrado = repository.save(registroPonto);
 

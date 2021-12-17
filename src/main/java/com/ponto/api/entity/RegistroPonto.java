@@ -43,6 +43,12 @@ public class RegistroPonto {
     @Column(name = "DS_MENSAGEM")
     private String mensagem;
 
+    @Column(name = "NU_LATITUDE")
+    private Double latitude;
+
+    @Column(name = "NU_LONGITUDE")
+    private Double longitude;
+
     public Integer getCodigo() {
         return codigo;
     }
@@ -91,4 +97,19 @@ public class RegistroPonto {
         this.mensagem = mensagem;
     }
 
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 }
