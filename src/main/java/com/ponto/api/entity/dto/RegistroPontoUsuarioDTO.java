@@ -9,6 +9,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.ponto.api.entity.RegistroPonto;
 import com.ponto.api.enums.StatusRegistroPonto;
+import com.ponto.api.utils.DateUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,6 +40,8 @@ public class RegistroPontoUsuarioDTO {
     private String nomeUsuario;
 
     private Integer codigoUsuario;
+
+    private String descricaoDia;
 
     public RegistroPontoUsuarioDTO(RegistroPonto registroPonto) {
 
@@ -96,5 +99,21 @@ public class RegistroPontoUsuarioDTO {
 
     public void setCodigoUsuario(Integer codigoUsuario) {
         this.codigoUsuario = codigoUsuario;
+    }
+
+    public String getDescricaoDia() {
+        return verificaDia();
+    }
+
+    private String verificaDia() {
+
+        if (DateUtils.dataAtual().isEqual(dataBatida)) {
+            return " Hoje";
+        } else if (dataBatida.isEqual(DateUtils.dataAtual().plusDays(-1))) {
+            return " Ontem";
+        } else {
+            return "Anteriores";
+        }
+
     }
 }
