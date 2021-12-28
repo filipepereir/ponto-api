@@ -1,6 +1,5 @@
 package com.ponto.api.rest;
 
-import com.ponto.api.entity.dto.LocalizacaoDTO;
 import com.ponto.api.rest.utils.RESTIntegracao;
 import io.restassured.http.ContentType;
 import org.json.JSONException;
@@ -8,10 +7,7 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Map;
-
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
 class RESTPontoTest extends RESTIntegracao {
