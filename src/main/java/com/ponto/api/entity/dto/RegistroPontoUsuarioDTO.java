@@ -16,13 +16,15 @@ import java.time.LocalDateTime;
 
 public class RegistroPontoUsuarioDTO {
 
-    public RegistroPontoUsuarioDTO(LocalDateTime dataHoraRegistro, LocalDate dataBatida, StatusRegistroPonto status, String mensagem, String nomeUsuario, Integer codigoUsuario) {
+    public RegistroPontoUsuarioDTO(LocalDateTime dataHoraRegistro, LocalDate dataBatida, StatusRegistroPonto status, String mensagem, String nomeUsuario, Integer codigoUsuario, Double latitude, Double longitude) {
         this.dataHoraRegistro = dataHoraRegistro;
         this.dataBatida = dataBatida;
         this.status = status;
         this.mensagem = mensagem;
         this.nomeUsuario = nomeUsuario;
         this.codigoUsuario = codigoUsuario;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
@@ -41,7 +43,9 @@ public class RegistroPontoUsuarioDTO {
 
     private Integer codigoUsuario;
 
-    private String descricaoDia;
+    private Double latitude;
+
+    private Double longitude;
 
     public RegistroPontoUsuarioDTO(RegistroPonto registroPonto) {
 
@@ -103,6 +107,22 @@ public class RegistroPontoUsuarioDTO {
 
     public String getDescricaoDia() {
         return verificaDia();
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     private String verificaDia() {

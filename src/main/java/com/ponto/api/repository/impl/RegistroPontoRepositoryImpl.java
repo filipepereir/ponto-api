@@ -62,7 +62,7 @@ public class RegistroPontoRepositoryImpl {
 		try {
 
 			String sql = "SELECT new com.ponto.api.entity.dto.RegistroPontoUsuarioDTO ( "
-					+ "rp.dataHoraBatida, rp.dataBatida, rp.status, rp.mensagem, u.nome, u.codigo) "
+					+ "rp.dataHoraBatida, rp.dataBatida, rp.status, rp.mensagem, u.nome, u.codigo, rp.latitude, rp.longitude) "
 					+ " from RegistroPonto rp join rp.usuario u where u.email = :email";
 
 			TypedQuery<RegistroPontoUsuarioDTO> query = em.createQuery(sql, RegistroPontoUsuarioDTO.class);
