@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 // Permite que seja adicionados novas requisições não checadas
-                .authorizeRequests().antMatchers("/auth")
+                .authorizeRequests().antMatchers("/auth", "/portal-admin/prometheus")
                 .permitAll().
                 // as demais requisições erão checadas
                         anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(authEntryPoint).and()
