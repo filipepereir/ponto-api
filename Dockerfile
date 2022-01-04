@@ -4,7 +4,7 @@ WORKDIR /ponto
 
 COPY . .
 
-RUN ./mvnw package
+RUN mvn package
 
 FROM openjdk:11 AS prod
 MAINTAINER Filipe pereira
