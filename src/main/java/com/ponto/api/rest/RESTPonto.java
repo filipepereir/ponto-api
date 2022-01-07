@@ -1,8 +1,10 @@
 package com.ponto.api.rest;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.NoResultException;
+import javax.websocket.server.PathParam;
 
 import com.ponto.api.entity.dto.LocalizacaoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +57,16 @@ public class RESTPonto extends RESTUtils {
     public ResponseEntity<List<RegistroPontoUsuarioDTO>> buscarRegistrosV2() {
         try {
             var registros = service.buscarRegistrosv2(getUsuarioLogado().getEmail());
+            return ResponseEntity.status(HttpStatus.OK).body(registros);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RegistroPontoUsuarioDTO>> buscarRegistrosByData(@RequestParam("data") String data) {
+        try {
+            var registros = service.buscarRegistrosByData(data, getUsuarioLogado());
             return ResponseEntity.status(HttpStatus.OK).body(registros);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

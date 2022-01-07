@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,5 +77,9 @@ public class RegistroPontoService {
 
     public List<RegistroPontoUsuarioDTO> buscarRegistrosv2(String email) {
         return repository.buscarRegistrosUsuariosV2(email);
+    }
+
+    public List<RegistroPontoUsuarioDTO> buscarRegistrosByData(String data, UsuarioDTO usuarioLogado) {
+        return repository.buscarRegistrosByData(data, usuarioLogado);
     }
 }
