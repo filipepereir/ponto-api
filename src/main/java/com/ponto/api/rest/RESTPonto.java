@@ -1,20 +1,16 @@
 package com.ponto.api.rest;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import javax.persistence.NoResultException;
-import javax.websocket.server.PathParam;
-
 import com.ponto.api.entity.dto.LocalizacaoDTO;
+import com.ponto.api.entity.dto.RegistroPontoDTO;
+import com.ponto.api.entity.dto.RegistroPontoUsuarioDTO;
+import com.ponto.api.service.RegistroPontoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.ponto.api.entity.dto.RegistroPontoDTO;
-import com.ponto.api.entity.dto.RegistroPontoUsuarioDTO;
-import com.ponto.api.service.RegistroPontoService;
+import javax.persistence.NoResultException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/registro")
